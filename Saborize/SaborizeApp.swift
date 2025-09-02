@@ -11,7 +11,7 @@ import SwiftUI
 struct SaborizeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RecipesListView()
         }
     }
 }
