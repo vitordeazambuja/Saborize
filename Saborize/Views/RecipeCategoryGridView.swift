@@ -12,14 +12,22 @@ struct RecipeCategoryGridView: View {
     
     var body: some View {
         NavigationView{
-            LazyVGrid(columns: [GridItem()], content: {
-                ForEach(MainInformation.Category.allCases, id: \.self){
-                    category in
-                    Text(category.rawValue)
-                        .font(.title)
-                }
-            })
-            .navigationTitle("Categories")
+            ScrollView{
+                let columns = [GridItem(),GridItem()]
+                LazyVGrid(columns: columns, content: {
+                    ForEach(MainInformation.Category.allCases, id: \.self){
+                        category in
+                        ZStack{
+                            Image(category.rawValue)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            Text(category.rawValue)
+                                .font(.title)
+                        }
+                    }
+                })
+                .navigationTitle("Categories")
+            }
         }
     }
 }
