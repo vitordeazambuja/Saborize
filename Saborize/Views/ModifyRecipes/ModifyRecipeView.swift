@@ -23,9 +23,9 @@ struct ModifyRecipeView: View {
       .padding()
       switch selection {
       case .main:
-        Text("Main Editor")
+          ModifyMainInformationView(mainInformation: $recipe.mainInformation)
       case .ingredients:
-        Text("Ingredients Editor")
+          ModifyIngredientsView(ingredients: $recipe.ingredients)
       case .directions:
         Text("Directions Editor")
       }
