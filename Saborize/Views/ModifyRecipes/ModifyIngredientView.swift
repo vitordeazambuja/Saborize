@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ModifyIngredientView: View {
-    @State var ingredient: Ingredient
+    @Binding var ingredient: Ingredient
     var body: some View {
         VStack{
             Form{
@@ -37,7 +37,8 @@ struct ModifyIngredientView: View {
 }
     
 #Preview {
+    @Previewable @State var emptyIngredient = Ingredient(name: "", quantity: 1.0, unit: .none)
     NavigationView {
-        ModifyIngredientView(ingredient: Ingredient(name: "", quantity: 1.0, unit: .none))
+        ModifyIngredientView(ingredient: $emptyIngredient)
     }
 }

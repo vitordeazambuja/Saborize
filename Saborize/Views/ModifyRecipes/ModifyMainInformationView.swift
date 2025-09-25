@@ -41,6 +41,8 @@ struct ModifyMainInformationView: View {
 }
 
 #Preview {
-    @Previewable @State var mainInformation = MainInformation(name: "",description: "",author: "",category: .breakfast)
-    ModifyMainInformationView(mainInformation: $mainInformation)
+    @Previewable @State var mainInformation = MainInformation(name: "", description: "", author: "", category: .breakfast)
+    NavigationView{
+        ModifyMainInformationView(mainInformation: $mainInformation)
+    }
 }
