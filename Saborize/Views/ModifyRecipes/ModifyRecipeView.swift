@@ -43,5 +43,7 @@ struct ModifyRecipeView: View {
 
 #Preview {
     @Previewable @State var recipe = Recipe()
-    ModifyRecipeView(recipe: $recipe)
+    NavigationView{
+        ModifyRecipeView(recipe: $recipe)
+    }
 }
