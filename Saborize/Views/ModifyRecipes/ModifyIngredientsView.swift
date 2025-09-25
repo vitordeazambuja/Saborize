@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ModifyIngredientsView: View {
     @Binding var ingredients: [Ingredient]
-    @State private var newIngredient = Ingredient(name: "", quantity: 0.0, unit: .none)
+    @State private var newIngredient = Ingredient()
     
     var body: some View {
         VStack{
@@ -28,7 +28,7 @@ struct ModifyIngredientsView: View {
                     }
                     NavigationLink("Add another ingredient", destination: ModifyIngredientView(ingredient: $newIngredient) { ingredient in
                         ingredients.append(ingredient)
-                        newIngredient = Ingredient(name: "", quantity: 0.0, unit: .none)
+                        newIngredient = Ingredient()
                     })
                     .buttonStyle(PlainButtonStyle())
                 }
