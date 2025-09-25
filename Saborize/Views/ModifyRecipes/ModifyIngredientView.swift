@@ -13,10 +13,10 @@ struct ModifyIngredientView: View {
         VStack{
             Form{
                 TextField("Ingredient Name", text: $ingredient.name)
-                Stepper(value: $ingredient.quantity, in: 0...100,step: 1.0){
+                Stepper(value: $ingredient.quantity, in: 0...100,step: 0.5){
                     HStack{
                         Text("Quantity:")
-                        TextField("Quantity", value: $ingredient.quantity,formatter: NumberFormatter())
+                        TextField("Quantity", value: $ingredient.quantity,formatter: NumberFormatter.decimal)
                             .keyboardType(.numbersAndPunctuation)
                     }
                 }
@@ -31,6 +31,14 @@ struct ModifyIngredientView: View {
                 .pickerStyle(MenuPickerStyle())
             }
         }
+    }
+}
+
+extension NumberFormatter{
+    static var decimal: NumberFormatter{
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
     }
 }
     
