@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ModifyIngredientView: View {
     @Binding var ingredient: Ingredient
+    let createAction: ((Ingredient)->Void)
+    
     var body: some View {
         VStack{
             Form{
@@ -29,6 +31,11 @@ struct ModifyIngredientView: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+                HStack{
+                    Spacer()
+                    Button("Save"){createAction(ingredient)}
+                    Spacer()
+                }
             }
         }
     }
@@ -41,10 +48,12 @@ extension NumberFormatter{
         return formatter
     }
 }
-    
+
 #Preview {
     @Previewable @State var emptyIngredient = Ingredient(name: "", quantity: 1.0, unit: .none)
     NavigationView {
-        ModifyIngredientView(ingredient: $emptyIngredient)
+        ModifyIngredientView(ingredient: $emptyIngredient){ingredient in
+            print(ingredient)
+        }
     }
 }
