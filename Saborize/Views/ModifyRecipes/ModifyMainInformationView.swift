@@ -26,8 +26,6 @@ struct ModifyMainInformationView: View {
             Picker(selection: $mainInformation.category, label:
                 HStack{
                     Text("Category")
-                    Spacer()
-                    Text(mainInformation.category.rawValue)
                 }) {
                     ForEach(MainInformation.Category.allCases, id: \.self) { category in
                         Text(category.rawValue)
