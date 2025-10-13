@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ModifyDirection: View {
+struct ModifyDirectionView: View {
     @Binding var direction: Direction
     let createAction: (Direction) -> Void
     
@@ -39,7 +39,7 @@ struct ModifyDirection: View {
     struct ModifyDirection_PreviewHost: View {
         @State private var emptyDirection = Direction(description: "", isOptional: false)
         var body: some View {
-            ModifyDirection(direction: $emptyDirection) { _ in }
+            ModifyDirectionView(direction: $emptyDirection) { _ in }
         }
     }
     return ModifyDirection_PreviewHost()
