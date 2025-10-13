@@ -1,0 +1,46 @@
+//
+//  ModifyDirection.swift
+//  Saborize
+//
+//  Created by Vitor de Azambuja on 13/10/25.
+//
+
+import SwiftUI
+
+struct ModifyDirection: View {
+    @Binding var direction: Direction
+    let createAction: (Direction) -> Void
+    
+    private let listBackgroundColor = AppColor.background
+    private let listTextColor = AppColor.foreground
+    
+    @Environment(\.presentationMode) private var mode
+    
+    var body: some View {
+        Form{
+            TextField("Direction Description", text: $direction.description)
+                .listRowBackground(listBackgroundColor)
+            Toggle("Optional", isOn: $direction.isOptional)
+                .listRowBackground(listBackgroundColor)
+            HStack{
+                Spacer()
+                Button("Save"){
+                    createAction(direction)
+                    mode.wrappedValue.dismiss()
+                }
+                Spacer()
+            } .listRowBackground(listBackgroundColor)
+        }
+        .foregroundColor(listTextColor)
+    }
+}
+
+#Preview {
+    struct ModifyDirection_PreviewHost: View {
+        @State private var emptyDirection = Direction(description: "", isOptional: false)
+        var body: some View {
+            ModifyDirection(direction: $emptyDirection) { _ in }
+        }
+    }
+    return ModifyDirection_PreviewHost()
+}
