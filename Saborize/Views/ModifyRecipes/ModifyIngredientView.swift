@@ -7,9 +7,14 @@
 
 import SwiftUI
 
-struct ModifyIngredientView: View {
+struct ModifyIngredientView: ModifyComponentView {
     @Binding var ingredient: Ingredient
     let createAction: ((Ingredient)->Void)
+    
+    init(component: Binding<Ingredient>, createAction: @escaping (Ingredient) -> Void) {
+        self._ingredient = component
+        self.createAction = createAction
+    }
     
     @Environment(\.presentationMode) private var mode
     
@@ -63,10 +68,10 @@ extension NumberFormatter{
 }
 
 #Preview {
-    @Previewable @State var emptyIngredient = Ingredient()
+    @Previewable @State var emptyIngredient = Recipe.testRecipes[0].ingredients[0]
     NavigationView {
-        ModifyIngredientView(ingredient: $emptyIngredient){ingredient in
-            print(ingredient)
+        ModifyIngredientView(component: $emptyIngredient){
+            ingredient in print(ingredient)
         }
-    }
+    }.navigationTitle("Add Ingredient")
 }

@@ -7,9 +7,14 @@
 
 import SwiftUI
 
-struct ModifyDirectionView: View {
+struct ModifyDirectionView: ModifyComponentView {
     @Binding var direction: Direction
     let createAction: (Direction) -> Void
+    
+    init(component: Binding<Direction>, createAction: @escaping (Direction) -> Void){
+        self._direction = component
+        self.createAction = createAction
+    }
     
     private let listBackgroundColor = AppColor.background
     private let listTextColor = AppColor.foreground
@@ -39,7 +44,7 @@ struct ModifyDirectionView: View {
     struct ModifyDirection_PreviewHost: View {
         @State private var emptyDirection = Direction(description: "", isOptional: false)
         var body: some View {
-            ModifyDirectionView(direction: $emptyDirection) { _ in }
+            ModifyDirectionView(component: $emptyDirection) { _ in }
         }
     }
     return ModifyDirection_PreviewHost()

@@ -11,6 +11,11 @@ protocol RecipeComponent{
     init()
 }
 
+protocol ModifyComponentView: View {
+    associatedtype Component
+    init(component: Binding<Component>, createAction: @escaping (Component) -> Void)
+}
+
 struct ModifyComponentsView: View {
     @Binding var ingredients: [Ingredient]
     @State private var newIngredient = Ingredient()
@@ -20,9 +25,15 @@ struct ModifyComponentsView: View {
     
     var body: some View {
         VStack{
+            
+            let addIngredientView = ModifyIngredientView(component: $newIngredient){
+                ingredient in ingredients.append(ingredient)
+                newIngredient = Ingredient()
+            }.navigationTitle("Add Ingredient")
+            
             if ingredients.isEmpty{
                 Spacer()
-                NavigationLink("Add the first ingredient", destination: ModifyIngredientView(ingredient: $newIngredient) { ingredient in
+                NavigationLink("Add the first ingredient", destination: ModifyIngredientView(component: $newIngredient) { ingredient in
                     ingredients.append(ingredient)
                     newIngredient = Ingredient(name: "", quantity: 0.0, unit: .none)
                 })
@@ -33,7 +44,7 @@ struct ModifyComponentsView: View {
                         let ingredient = ingredients[index]
                         Text(ingredient.description)
                     }.listRowBackground(listBackgroundColor)
-                    NavigationLink("Add another ingredient", destination: ModifyIngredientView(ingredient: $newIngredient) { ingredient in
+                    NavigationLink("Add another ingredient", destination: ModifyIngredientView(component: $newIngredient) { ingredient in
                         ingredients.append(ingredient)
                         newIngredient = Ingredient()
                     })
