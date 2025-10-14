@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-protocol RecipeComponent{
+protocol RecipeComponent: CustomStringConvertible{
     init()
 }
 
