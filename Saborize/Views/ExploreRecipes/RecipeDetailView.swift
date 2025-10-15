@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    let recipe: Recipe
+    @Binding var recipe: Recipe
     
     private let listBackgroundColor = AppColor.background
     private let listTextColor = AppColor.foreground
@@ -29,19 +29,20 @@ struct RecipeDetailView: View {
             }
             List{
                 Section(header: Text("Ingredients")){
-                    ForEach(recipe.ingredients.indices, id: \.self){
-                        index in let ingredient = recipe.ingredients[index]
+                    ForEach(recipe.ingredients.indices, id: \.self) { index in
+                        let ingredient = recipe.ingredients[index]
                         Text(ingredient.description)
                             .foregroundColor(listTextColor)
                     }
                 } .listRowBackground(listBackgroundColor)
                 Section(header: Text("Directions")){
-                    ForEach(recipe.directions.indices, id: \.self){
-                        index in let direction = recipe.directions[index]
+                    ForEach(recipe.directions.indices, id: \.self) { index in
+                        let direction = recipe.directions[index]
                         HStack{
                             Text("\(index+1). ").bold()
                             Text("\(direction.isOptional ? "(Optional) " : "")" + "\(direction.description)")
-                        }.foregroundColor(listTextColor)
+                        }
+                        .foregroundColor(listTextColor)
                     }
                 }.listRowBackground(listBackgroundColor)
             }
@@ -51,7 +52,8 @@ struct RecipeDetailView: View {
 }
 
 #Preview {
-    NavigationView{
-        RecipeDetailView(recipe: Recipe.testRecipes[0])
+    @Previewable @State var recipe: Recipe = .testRecipes[0]
+    NavigationView {
+        RecipeDetailView(recipe: $recipe)
     }
 }
