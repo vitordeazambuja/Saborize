@@ -56,12 +56,12 @@ struct ModifyComponentsView<Component: RecipeComponent, DestinationView: ModifyC
                 List{
                     ForEach(components.indices, id: \.self){ index in
                         let component = components[index]
-                        Text(String(describing: component))
+                        let editComponentView = DestinationView(component: $components[index]){
+                            _ in return
+                        }
+                            .navigationTitle("Edit " + "\(Component.singularName().capitalized)")
+                        NavigationLink(component.description,destination: editComponentView)
                     }.listRowBackground(listBackgroundColor)
-                    NavigationLink("Add another \(Component.singularName())", destination: addComponentView)
-                        .buttonStyle(PlainButtonStyle())
-                        .listRowBackground(listBackgroundColor)
-                        .foregroundColor(listTextColor)
                 }
                 .listRowBackground(listBackgroundColor)
             }
