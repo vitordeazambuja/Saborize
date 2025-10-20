@@ -1,0 +1,32 @@
+//
+//  MainTabView.swift
+//  Saborize
+//
+//  Created by Vitor de Azambuja on 20/10/25.
+//
+
+import SwiftUI
+
+struct MainTabView: View {
+    @StateObject var recipeData = RecipeData()
+    
+    var body: some View {
+        TabView{
+            RecipeCategoryGridView()
+                .tabItem{
+                    Label("Recipes", systemImage: "list.dash")
+                }
+            NavigationView{
+                RecipesListView(category: .breakfast)
+            }
+            .tabItem{
+                Label("Favorites", systemImage: "heart.fill")
+            }
+        }
+        .environmentObject(recipeData)
+    }
+}
+
+#Preview {
+    MainTabView()
+}
