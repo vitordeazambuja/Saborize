@@ -23,6 +23,12 @@ struct Recipe: Identifiable{
         self.directions = directions
     }
     
+    func index(of direction: Direction, excludingOptionalDirections: Bool) -> Int? {
+        let directions = directions.filter{ excludingOptionalDirections ? !$0.isOptional : true}
+        let index = directions.firstIndex{ $0.description == direction.description }
+        return index
+    }
+    
     init(){
         self.init(mainInformation: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
     }
