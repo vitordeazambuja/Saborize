@@ -21,11 +21,10 @@ struct RecipesListView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(recipes) { recipe in
-                    NavigationLink(
-                        recipe.mainInformation.name,
-                        destination: RecipeDetailView(recipe: binding(for: recipe))
-                    )
+                ForEach(recipes, id: \.id) { recipe in
+                    NavigationLink(destination: RecipeDetailView(recipe: binding(for: recipe))) {
+                        Text(recipe.mainInformation.name)
+                    }
                 }
                 .listRowBackground(listBackgroundColor)
                 .foregroundColor(listTextColor)
@@ -52,13 +51,14 @@ struct RecipesListView: View {
                                 }
                             }
                             ToolbarItem(placement: .confirmationAction) {
-                                if newRecipe.isValid {
+                                Button("Add") {
                                     if case .favorites = viewStyle {
                                         newRecipe.isFavorite = true
                                     }
                                     recipeData.add(recipe: newRecipe)
                                     isPresenting = false
                                 }
+                                .disabled(!newRecipe.isValid)
                             }
                         })
                         .navigationTitle("Add a New Recipe")
