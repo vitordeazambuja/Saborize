@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     @Binding var recipe: Recipe
+    @EnvironmentObject private var recipeData: RecipeData
     
     @State private var isPresenting = false
     
@@ -81,6 +82,9 @@ struct RecipeDetailView: View {
                     }
                     .navigationTitle("Edit Recipe")
             }
+            .onDisappear{
+                recipeData.saveRecipes()
+            }
         }
     }
 }
@@ -91,3 +95,4 @@ struct RecipeDetailView: View {
         RecipeDetailView(recipe: $recipe)
     }
 }
+
